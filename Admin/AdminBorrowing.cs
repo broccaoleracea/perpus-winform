@@ -115,8 +115,9 @@ namespace desainperpus_vanya
 
                         //insert peminjaman
                         string qryAddPeminjaman = @"
-            INSERT INTO peminjaman (id_user, tgl_pinjam, tgl_kembali, durasi_pinjam, denda)
-            VALUES (@id_user, @tgl_pinjam, @tgl_kembali, @durasi_pinjam, @denda);";
+    INSERT INTO peminjaman (id_user, tgl_pinjam, tgl_kembali, durasi_pinjam, denda)
+    VALUES (@id_user, @tgl_pinjam, @tgl_kembali, @durasi_pinjam, @denda);
+    SELECT SCOPE_IDENTITY();";
 
                 SqlCommand cmdPeminjaman = new SqlCommand(qryAddPeminjaman, LoginForm.conn);
                 cmdPeminjaman.Parameters.AddWithValue("@id_user", idUser);
@@ -126,6 +127,7 @@ namespace desainperpus_vanya
                 cmdPeminjaman.Parameters.AddWithValue("@denda", denda);
 
 
+                cmdPeminjaman.ExecuteNonQuery();
                 int idPeminjaman = Convert.ToInt32(cmdPeminjaman.ExecuteScalar());
 
                 // insert into peminjaman_buku
@@ -141,7 +143,7 @@ namespace desainperpus_vanya
                 cmdPeminjamanBuku.ExecuteNonQuery();
 
                 SqlCommand updateStok = new SqlCommand("UPDATE buku set stok=stok-@jumlahpinjam  WHERE id_buku=@id_buku AND stok >= @jumlahpinjam", LoginForm.conn);
-                cmdPeminjamanBuku.Parameters.AddWithValue("@id_buku", idBuku);
+                updateStok.Parameters.AddWithValue("@id_buku", idBuku);
                 updateStok.Parameters.AddWithValue("@jumlahpinjam", jumlahPinjam);
                 updateStok.ExecuteNonQuery();
 
@@ -156,6 +158,7 @@ namespace desainperpus_vanya
                 if (LoginForm.conn.State == ConnectionState.Open)
                     LoginForm.conn.Close();
                 ResetValues();
+                displayTable();
             }
         }
 
@@ -273,7 +276,7 @@ namespace desainperpus_vanya
             }
             finally
             {
-                if (LoginForm.conn.State == System.Data.ConnectionState.Open)
+                if (LoginForm.conn.State == ConnectionState.Open)
                     LoginForm.conn.Close();
                 ResetValues();
             }
@@ -283,6 +286,7 @@ namespace desainperpus_vanya
         {
             try
             {
+                LoginForm.connOpen();
                 // confirm if the user really want to delete the data
                 // enetered parameters based on the order theyre appearing in : the message box content, message box title, messagebox type 
                 DialogResult confirmDelete = MessageBox.Show("Anda yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
@@ -299,6 +303,7 @@ namespace desainperpus_vanya
                     //execute
                     delPeminjamanDetail.ExecuteNonQuery();
                     delPeminjaman.ExecuteNonQuery();  
+                    MessageBox.Show("Data berhasil dihapus");
                 }
                 else if (confirmDelete == DialogResult.No)
                 {
@@ -316,7 +321,6 @@ namespace desainperpus_vanya
                 ResetValues();
                 displayTable();
 
-                MessageBox.Show("Data berhasil dihapus");
             }
 
         }
