@@ -9,5 +9,11 @@ namespace desainperpus_vanya
     internal class UserInfo
     {
         public static string UserName { get; set; }
+
+        public static void Logout(Form form)
+        {
+            UserName = null;
+            form.Close();
+        }
     }
 }

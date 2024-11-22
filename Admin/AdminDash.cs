@@ -89,7 +89,7 @@ namespace desainperpus_vanya
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            UserInfo.Logout(this);
         }
     }
 }

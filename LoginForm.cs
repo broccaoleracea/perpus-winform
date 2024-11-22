@@ -28,6 +28,12 @@ namespace desainperpus_vanya
             }
         }
 
+        public void ResetFields()
+        {
+            txtUsername.Text = null;
+            txtPass.Text = null;
+        }
+
         public LoginForm()
         {
             InitializeComponent();
@@ -60,6 +66,7 @@ namespace desainperpus_vanya
                         StudentDash dash = new StudentDash(this);
                         dash.Show();
                     }
+                    ResetFields();
                     this.Hide();
                 }
             }
