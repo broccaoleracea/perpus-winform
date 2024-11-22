@@ -42,6 +42,7 @@
             label1 = new Label();
             label2 = new Label();
             panel1 = new Panel();
+            btnDel = new Button();
             dateTimePicker1 = new DateTimePicker();
             numStok = new NumericUpDown();
             button3 = new Button();
@@ -50,7 +51,6 @@
             label4 = new Label();
             txtPenerbit = new TextBox();
             label5 = new Label();
-            btnDel = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
@@ -66,6 +66,7 @@
             dataGridView1.Size = new Size(533, 488);
             dataGridView1.TabIndex = 23;
             dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // label9
             // 
@@ -202,6 +203,17 @@
             panel1.Size = new Size(324, 546);
             panel1.TabIndex = 2;
             // 
+            // btnDel
+            // 
+            btnDel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnDel.Location = new Point(15, 497);
+            btnDel.Name = "btnDel";
+            btnDel.Size = new Size(290, 34);
+            btnDel.TabIndex = 30;
+            btnDel.Text = "Delete";
+            btnDel.UseVisualStyleBackColor = true;
+            btnDel.Click += btnDel_Click;
+            // 
             // dateTimePicker1
             // 
             dateTimePicker1.CustomFormat = "yyyy";
@@ -273,17 +285,6 @@
             label5.Size = new Size(51, 15);
             label5.TabIndex = 21;
             label5.Text = "Penerbit";
-            // 
-            // btnDel
-            // 
-            btnDel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnDel.Location = new Point(15, 497);
-            btnDel.Name = "btnDel";
-            btnDel.Size = new Size(290, 34);
-            btnDel.TabIndex = 30;
-            btnDel.Text = "Delete";
-            btnDel.UseVisualStyleBackColor = true;
-            btnDel.Click += btnDel_Click;
             // 
             // AdminBookData
             // 

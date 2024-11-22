@@ -76,5 +76,10 @@ namespace desainperpus_vanya
         {
             loginForm.Show();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

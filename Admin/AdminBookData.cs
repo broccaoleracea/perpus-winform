@@ -44,7 +44,7 @@ namespace desainperpus_vanya
             }
             finally
             {
-                if (LoginForm.conn.State == System.Data.ConnectionState.Open)
+                if (LoginForm.conn.State == ConnectionState.Open)
                     LoginForm.conn.Close();
                 MessageBox.Show("Data berhasil ditambahkan.");
                 displayTable();
@@ -84,7 +84,7 @@ namespace desainperpus_vanya
             }
             finally
             {
-                if (LoginForm.conn.State == System.Data.ConnectionState.Open)
+                if (LoginForm.conn.State == ConnectionState.Open)
                     LoginForm.conn.Close();
                 MessageBox.Show("Data berhasil di update.");
                 displayTable();
@@ -169,6 +169,9 @@ namespace desainperpus_vanya
             }
         }
 
-      
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

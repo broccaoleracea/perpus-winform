@@ -30,11 +30,9 @@
         {
             pnlMain = new Panel();
             adminReturning1 = new AdminReturning();
-            adminBorrowing1 = new AdminBorrowing();
-            adminBookData2 = new AdminBookData();
-            adminStudentData1 = new AdminStudentData();
             adminDashContent1 = new AdminDashContent();
             pnlSide = new Panel();
+            label3 = new Label();
             pnlHighlight = new Panel();
             lblGreeting = new Label();
             label1 = new Label();
@@ -44,22 +42,24 @@
             button4 = new Button();
             button2 = new Button();
             button1 = new Button();
-            label3 = new Label();
+            adminBookData1 = new AdminBookData();
+            adminBorrowing1 = new AdminBorrowing();
+            adminStudentData1 = new AdminStudentData();
             pnlMain.SuspendLayout();
             pnlSide.SuspendLayout();
             SuspendLayout();
             // 
             // pnlMain
             // 
-            pnlMain.Controls.Add(adminReturning1);
-            pnlMain.Controls.Add(adminBorrowing1);
-            pnlMain.Controls.Add(adminBookData2);
-            pnlMain.Controls.Add(adminStudentData1);
             pnlMain.Controls.Add(adminDashContent1);
+            pnlMain.Controls.Add(adminStudentData1);
+            pnlMain.Controls.Add(adminBookData1);
+            pnlMain.Controls.Add(adminBorrowing1);
+            pnlMain.Controls.Add(adminReturning1);
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 0);
             pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(1127, 661);
+            pnlMain.Size = new Size(1162, 661);
             pnlMain.TabIndex = 0;
             pnlMain.Paint += panel1_Paint;
             // 
@@ -69,35 +69,8 @@
             adminReturning1.BackColor = SystemColors.ControlLightLight;
             adminReturning1.Location = new Point(237, 0);
             adminReturning1.Name = "adminReturning1";
-            adminReturning1.Size = new Size(890, 661);
+            adminReturning1.Size = new Size(925, 661);
             adminReturning1.TabIndex = 4;
-            // 
-            // adminBorrowing1
-            // 
-            adminBorrowing1.BackColor = SystemColors.ControlLightLight;
-            adminBorrowing1.Dock = DockStyle.Right;
-            adminBorrowing1.Location = new Point(241, 0);
-            adminBorrowing1.Name = "adminBorrowing1";
-            adminBorrowing1.Size = new Size(886, 661);
-            adminBorrowing1.TabIndex = 3;
-            // 
-            // adminBookData2
-            // 
-            adminBookData2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            adminBookData2.BackColor = SystemColors.ControlLightLight;
-            adminBookData2.Location = new Point(230, 0);
-            adminBookData2.Name = "adminBookData2";
-            adminBookData2.Size = new Size(897, 661);
-            adminBookData2.TabIndex = 2;
-            // 
-            // adminStudentData1
-            // 
-            adminStudentData1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            adminStudentData1.BackColor = SystemColors.ControlLightLight;
-            adminStudentData1.Location = new Point(237, 0);
-            adminStudentData1.Name = "adminStudentData1";
-            adminStudentData1.Size = new Size(890, 661);
-            adminStudentData1.TabIndex = 1;
             // 
             // adminDashContent1
             // 
@@ -105,7 +78,7 @@
             adminDashContent1.BackColor = SystemColors.ControlLightLight;
             adminDashContent1.Location = new Point(237, 0);
             adminDashContent1.Name = "adminDashContent1";
-            adminDashContent1.Size = new Size(890, 661);
+            adminDashContent1.Size = new Size(925, 661);
             adminDashContent1.TabIndex = 0;
             // 
             // pnlSide
@@ -126,6 +99,17 @@
             pnlSide.Name = "pnlSide";
             pnlSide.Size = new Size(234, 661);
             pnlSide.TabIndex = 1;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Montserrat Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlLightLight;
+            label3.Location = new Point(3, 592);
+            label3.Name = "label3";
+            label3.Size = new Size(126, 25);
+            label3.TabIndex = 8;
+            label3.Text = "Administrator";
             // 
             // pnlHighlight
             // 
@@ -172,6 +156,7 @@
             button6.Text = "Logout";
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // button5
             // 
@@ -254,23 +239,39 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
-            // label3
+            // adminBookData1
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Montserrat Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(3, 592);
-            label3.Name = "label3";
-            label3.Size = new Size(126, 25);
-            label3.TabIndex = 8;
-            label3.Text = "Administrator";
+            adminBookData1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            adminBookData1.BackColor = SystemColors.ControlLightLight;
+            adminBookData1.Location = new Point(230, 0);
+            adminBookData1.Name = "adminBookData1";
+            adminBookData1.Size = new Size(932, 661);
+            adminBookData1.TabIndex = 6;
+            // 
+            // adminBorrowing1
+            // 
+            adminBorrowing1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            adminBorrowing1.BackColor = SystemColors.ControlLightLight;
+            adminBorrowing1.Location = new Point(230, 0);
+            adminBorrowing1.Name = "adminBorrowing1";
+            adminBorrowing1.Size = new Size(932, 661);
+            adminBorrowing1.TabIndex = 7;
+            // 
+            // adminStudentData1
+            // 
+            adminStudentData1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            adminStudentData1.BackColor = SystemColors.ControlLightLight;
+            adminStudentData1.Location = new Point(230, 0);
+            adminStudentData1.Name = "adminStudentData1";
+            adminStudentData1.Size = new Size(932, 661);
+            adminStudentData1.TabIndex = 8;
             // 
             // AdminDash
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(1127, 661);
+            ClientSize = new Size(1162, 661);
             Controls.Add(pnlSide);
             Controls.Add(pnlMain);
             FormBorderStyle = FormBorderStyle.None;
@@ -303,5 +304,6 @@
         private AdminBorrowing adminBorrowing1;
         private AdminReturning adminReturning1;
         private Label label3;
+        private AdminBookData adminBookData1;
     }
 }

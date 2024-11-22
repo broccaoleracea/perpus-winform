@@ -61,7 +61,7 @@ namespace desainperpus_vanya
                  227,
                  button4.Location.Y
              );
-            adminBookData2.BringToFront();
+            adminBookData1.BringToFront();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -85,6 +85,11 @@ namespace desainperpus_vanya
         private void AdminDash_FormClosing(object sender, FormClosingEventArgs e)
         {
             loginForm.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

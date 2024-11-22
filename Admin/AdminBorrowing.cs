@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -84,8 +85,36 @@ namespace desainperpus_vanya
             {
                 LoginForm.connOpen();
 
-                //insert peminjaman
-                string qryAddPeminjaman = @"
+                // Check if there's enough stock to perform the transaction
+                SqlCommand query = new SqlCommand("SELECT * FROM buku WHERE id_buku=@id_buku", LoginForm.conn);
+                query.Parameters.AddWithValue("@id_buku", idBuku);
+                SqlDataAdapter asdbadsghasdhg = new SqlDataAdapter(query);
+                DataTable dt = new DataTable();
+                asdbadsghasdhg.Fill(dt);
+
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        SqlDataReader reader = query.ExecuteReader();
+                        reader.Read();
+                        UserInfo.UserName = reader.GetString(1);
+
+                        //If there current book stock is not enough, cancel the action
+                        if ((int)dr["stok"] < jumlahPinjam)
+                        {
+                            MessageBox.Show("Stok tidak cukup untuk memenuhi peminjaman! Stok buku saat ini : " + dr["stok"].ToString() + "");
+                            reader.Close();
+                            dt.Dispose();
+                            return;
+                        }
+                        reader.Close();
+                        dt.Dispose();
+                    }
+                }
+
+                        //insert peminjaman
+                        string qryAddPeminjaman = @"
             INSERT INTO peminjaman (id_user, tgl_pinjam, tgl_kembali, durasi_pinjam, denda)
             VALUES (@id_user, @tgl_pinjam, @tgl_kembali, @durasi_pinjam, @denda);";
 
@@ -110,6 +139,11 @@ namespace desainperpus_vanya
                 cmdPeminjamanBuku.Parameters.AddWithValue("@jml_pinjam", jumlahPinjam);
 
                 cmdPeminjamanBuku.ExecuteNonQuery();
+
+                SqlCommand updateStok = new SqlCommand("UPDATE buku set stok=stok-@jumlahpinjam  WHERE id_buku=@id_buku AND stok >= @jumlahpinjam", LoginForm.conn);
+                cmdPeminjamanBuku.Parameters.AddWithValue("@id_buku", idBuku);
+                updateStok.Parameters.AddWithValue("@jumlahpinjam", jumlahPinjam);
+                updateStok.ExecuteNonQuery();
 
                 MessageBox.Show("Peminjaman berhasil ditambahkan.");
             }
@@ -147,6 +181,7 @@ namespace desainperpus_vanya
             {
                 MessageBox.Show($"Terjadi kesalahan: {ex.Message}");
             }
+            return false;
         }
 
         private void AddDetailPeminjaman()
@@ -300,9 +335,7 @@ namespace desainperpus_vanya
             dtgvPeminjamanDetail.DataSource = detaildt;
             detailsda.Dispose();
 
-            cbNama.SelectedValue = (int)selectedRow.Cells[1].Value;
-            //cbJudul.SelectedValue = 
-            //numStok.Value = 
+            cbNama.SelectedValue = (int)selectedRow.Cells[1].Value; 
         }
 
         private void dtgvPeminjamanDetail_CellClick(object sender, DataGridViewCellEventArgs e)

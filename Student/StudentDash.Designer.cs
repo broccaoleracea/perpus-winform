@@ -30,6 +30,8 @@
         {
             pnlMain = new Panel();
             pnlSide = new Panel();
+            label3 = new Label();
+            lblGreeting = new Label();
             pnlHighlight = new Panel();
             label1 = new Label();
             button6 = new Button();
@@ -37,8 +39,6 @@
             button4 = new Button();
             button2 = new Button();
             button1 = new Button();
-            label3 = new Label();
-            lblGreeting = new Label();
             pnlSide.SuspendLayout();
             SuspendLayout();
             // 
@@ -68,6 +68,28 @@
             pnlSide.Name = "pnlSide";
             pnlSide.Size = new Size(234, 661);
             pnlSide.TabIndex = 1;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Montserrat Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlLightLight;
+            label3.Location = new Point(3, 588);
+            label3.Name = "label3";
+            label3.Size = new Size(79, 25);
+            label3.TabIndex = 10;
+            label3.Text = "Student";
+            // 
+            // lblGreeting
+            // 
+            lblGreeting.AutoSize = true;
+            lblGreeting.Font = new Font("Montserrat Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblGreeting.ForeColor = SystemColors.ControlLightLight;
+            lblGreeting.Location = new Point(3, 563);
+            lblGreeting.Name = "lblGreeting";
+            lblGreeting.Size = new Size(97, 25);
+            lblGreeting.TabIndex = 9;
+            lblGreeting.Text = "Welcome, ";
             // 
             // pnlHighlight
             // 
@@ -103,6 +125,7 @@
             button6.Text = "Logout";
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // button3
             // 
@@ -168,28 +191,6 @@
             button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Montserrat Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(3, 588);
-            label3.Name = "label3";
-            label3.Size = new Size(79, 25);
-            label3.TabIndex = 10;
-            label3.Text = "Student";
-            // 
-            // lblGreeting
-            // 
-            lblGreeting.AutoSize = true;
-            lblGreeting.Font = new Font("Montserrat Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblGreeting.ForeColor = SystemColors.ControlLightLight;
-            lblGreeting.Location = new Point(3, 563);
-            lblGreeting.Name = "lblGreeting";
-            lblGreeting.Size = new Size(97, 25);
-            lblGreeting.TabIndex = 9;
-            lblGreeting.Text = "Welcome, ";
             // 
             // StudentDash
             // 
