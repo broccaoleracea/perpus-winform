@@ -8,7 +8,7 @@ namespace desainperpus_vanya
 {
     internal class Connection
     {
-        public static string conn = "Data Source=LAPTOP-WARKOP-P\\SQLEXPRESS;Initial Catalog=vanya_perpusdb;Integrated Security=True;TrustServerCertificate=True";
+        public static string conn = "Data Source=LAPTOP-WARKOP-P\\SQLEXPRESS;Initial Catalog=vanya_perpusdb;Integrated Security=True;Trust Server Certificate=True";
         
 
 
