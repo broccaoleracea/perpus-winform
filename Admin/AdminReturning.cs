@@ -465,6 +465,7 @@ namespace desainperpus_vanya
             int index = e.RowIndex;
             DataGridViewRow selectedRow = dtgvPengembalian.Rows[index];
             id_pengembalian = (int)selectedRow.Cells[0].Value;
+            cbJudul.SelectedValue= (int)selectedRow.Cells[2].Value;
             numDenda.Value = (int)selectedRow.Cells[4].Value;
         }
 

@@ -230,8 +230,7 @@ namespace desainperpus_vanya
 
                 SqlCommand updateStok = new SqlCommand("UPDATE buku set stok=stok-@jumlahpinjam  WHERE id_buku=@id_buku AND stok >= @jumlahpinjam", LoginForm.conn);
                 updateStok.Parameters.AddWithValue("@id_buku", idBuku);
-                updateStok.Parameters.AddWithValue("@jumlahpinjam", jumlahPinjam);
-                MessageBox.Show("Reducing book stock by : " + jumlahPinjam);
+                updateStok.Parameters.AddWithValue("@jumlahpinjam", jumlahPinjam); 
                 updateStok.ExecuteNonQuery();
             }
             catch (SqlException ex)
@@ -256,7 +255,6 @@ namespace desainperpus_vanya
                     cmdUpdateStock.Parameters.AddWithValue("@jumlahpinjam", jumlahPinjam);
 
                     cmdUpdateStock.Connection.Open(); // Use a separate connection
-                    MessageBox.Show("Adding book stock by : " + jumlahPinjam);
                     cmdUpdateStock.ExecuteNonQuery();
                     cmdUpdateStock.Connection.Close();
                 }
