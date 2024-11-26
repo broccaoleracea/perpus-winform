@@ -63,6 +63,7 @@
             alamat = new DataGridViewTextBoxColumn();
             txtSearch = new TextBox();
             label9 = new Label();
+            btnRefresh = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -272,6 +273,7 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(btnRefresh);
             panel2.Controls.Add(dataGridView1);
             panel2.Controls.Add(txtSearch);
             panel2.Controls.Add(label9);
@@ -387,6 +389,17 @@
             label9.TabIndex = 21;
             label9.Text = "Search : ";
             // 
+            // btnRefresh
+            // 
+            btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRefresh.Location = new Point(485, 9);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(75, 23);
+            btnRefresh.TabIndex = 2;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
+            // 
             // AdminStudentData
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -441,5 +454,6 @@
         private DataGridViewTextBoxColumn nis;
         private DataGridViewTextBoxColumn kelas;
         private DataGridViewTextBoxColumn alamat;
+        private Button btnRefresh;
     }
 }

@@ -194,6 +194,13 @@ namespace desainperpus_vanya
                         DateTime tglKembaliRil = Convert.ToDateTime(result);
                         DateTime tglKembali = dtpPengembalian.Value;
 
+                        SqlCommand getStock = new SqlCommand("SELECT jml_pinjam FROM peminjaman_buku WHERE id_peminjaman=@id_peminjaman AND id_buku=@id_buku", LoginForm.conn);
+                        getStock.Parameters.AddWithValue("@id_peminjaman", id_peminjaman);
+                        getStock.Parameters.AddWithValue("@id_buku", (int)cbJudul.SelectedValue);
+                        object resultStock = getStock.ExecuteScalar();
+                        int jmlPinjam = (int)resultStock;
+
+                        AddBookStock((int)cbJudul.SelectedValue, jmlPinjam);
 
 
                         int denda = (tglKembali.Subtract(tglKembaliRil).Days) * 1000;
@@ -217,7 +224,7 @@ namespace desainperpus_vanya
                         addData.Parameters.AddWithValue("@id_buku", cbJudul.SelectedValue);
                         addData.Parameters.AddWithValue("@tgl_kembali", tglKembali);
                         addData.Parameters.AddWithValue("@denda", denda);
-
+                        LoginForm.connOpen();
                         addData.ExecuteNonQuery();
 
                         SqlCommand sumDendaCmd = new SqlCommand("SELECT SUM(denda) FROM pengembalian WHERE id_peminjaman = @id_peminjaman", LoginForm.conn);
@@ -381,12 +388,40 @@ namespace desainperpus_vanya
                     DialogResult confirmDelete = MessageBox.Show("Anda yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
                     if (confirmDelete == DialogResult.Yes)
                     {
+                        SqlCommand getStock = new SqlCommand("SELECT jml_pinjam FROM peminjaman_buku WHERE id_peminjaman=@id_peminjaman AND id_buku=@id_buku", LoginForm.conn);
+                        getStock.Parameters.AddWithValue("@id_peminjaman", id_peminjaman);
+                        getStock.Parameters.AddWithValue("@id_buku", (int)cbJudul.SelectedValue);
+                        object resultStock = getStock.ExecuteScalar();
+                        int jmlPinjam = (int)resultStock;
+
+                        ReduceBookStock((int)cbJudul.SelectedValue, jmlPinjam);
+
+
                         SqlCommand delPeminjamanDetail = new SqlCommand("DELETE FROM pengembalian WHERE id_pengembalian = @id_pengembalian", LoginForm.conn);
                         delPeminjamanDetail.Parameters.AddWithValue("@id_pengembalian", id_pengembalian);
 
                         //execute
                         LoginForm.connOpen();
                         delPeminjamanDetail.ExecuteNonQuery();
+                        // Update total denda for the `peminjaman`
+                        SqlCommand sumDendaCmd = new SqlCommand(
+                            "SELECT SUM(denda) FROM pengembalian WHERE id_peminjaman = @id_peminjaman",
+                            LoginForm.conn
+                        );
+                        sumDendaCmd.Parameters.AddWithValue("@id_peminjaman", id_peminjaman);
+
+                        object totalDendaObj = sumDendaCmd.ExecuteScalar();
+                        int totalDenda = Convert.ToInt32(totalDendaObj);
+
+                        SqlCommand updatePeminjamanCmd = new SqlCommand(
+                            "UPDATE peminjaman SET denda = @denda WHERE id_peminjaman = @id_peminjaman",
+                            LoginForm.conn
+                        );
+                        updatePeminjamanCmd.Parameters.AddWithValue("@denda", totalDenda);
+                        updatePeminjamanCmd.Parameters.AddWithValue("@id_peminjaman", id_peminjaman);
+
+                        updatePeminjamanCmd.ExecuteNonQuery();
+                        LoginForm.conn.Close();
                         MessageBox.Show("Data berhasil dihapus");
                     }
                 }

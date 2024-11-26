@@ -206,5 +206,11 @@ namespace desainperpus_vanya
         {
             SearchData();
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            ResetValues();
+            displayTable();
+        }
     }
 }

@@ -223,27 +223,27 @@ namespace desainperpus_vanya
         private void ReduceBookStock(int idBuku, int jumlahPinjam)
         {
             ValidateBookStock(idBuku, jumlahPinjam);
-            try
+            string connectionString = Connection.conn;
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                LoginForm.connOpen();
-
-
-                SqlCommand updateStok = new SqlCommand("UPDATE buku set stok=stok-@jumlahpinjam  WHERE id_buku=@id_buku AND stok >= @jumlahpinjam", LoginForm.conn);
-                updateStok.Parameters.AddWithValue("@id_buku", idBuku);
-                updateStok.Parameters.AddWithValue("@jumlahpinjam", jumlahPinjam); 
-                updateStok.ExecuteNonQuery();
+                try
+                {
+                    conn.Open();
+                    SqlCommand updateStok = new SqlCommand(
+                        "UPDATE buku SET stok = stok - @jumlahpinjam WHERE id_buku = @id_buku AND stok >= @jumlahpinjam",
+                        conn
+                    );
+                    updateStok.Parameters.AddWithValue("@id_buku", idBuku);
+                    updateStok.Parameters.AddWithValue("@jumlahpinjam", jumlahPinjam);
+                    updateStok.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show($"Terjadi kesalahan: {ex.Message}");
+                }
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show($"Terjadi kesalahan: {ex.Message}");
-            }
-            finally
-            {
-                if (LoginForm.conn.State == ConnectionState.Open)
-                    LoginForm.conn.Close();
-            }
-
         }
+
 
         private void AddBookStock(int idBuku, int jumlahPinjam)
         {

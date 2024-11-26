@@ -57,6 +57,7 @@
             label4 = new Label();
             txtPenerbit = new TextBox();
             label5 = new Label();
+            btnRefresh = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
@@ -156,6 +157,7 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(btnRefresh);
             panel2.Controls.Add(txtSearch);
             panel2.Controls.Add(label10);
             panel2.Controls.Add(dataGridView1);
@@ -342,6 +344,17 @@
             label5.TabIndex = 21;
             label5.Text = "Penerbit";
             // 
+            // btnRefresh
+            // 
+            btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRefresh.Location = new Point(201, 10);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(75, 23);
+            btnRefresh.TabIndex = 26;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
+            // 
             // AdminBookData
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -391,5 +404,6 @@
         private DataGridViewTextBoxColumn penerbit;
         private DataGridViewTextBoxColumn tahun_terbit;
         private DataGridViewTextBoxColumn stok;
+        private Button btnRefresh;
     }
 }
