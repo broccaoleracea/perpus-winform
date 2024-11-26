@@ -51,8 +51,6 @@
             label2 = new Label();
             panel2 = new Panel();
             dataGridView1 = new DataGridView();
-            textBox6 = new TextBox();
-            label9 = new Label();
             id_user = new DataGridViewTextBoxColumn();
             UserName = new DataGridViewTextBoxColumn();
             username1 = new DataGridViewTextBoxColumn();
@@ -63,6 +61,8 @@
             nis = new DataGridViewTextBoxColumn();
             kelas = new DataGridViewTextBoxColumn();
             alamat = new DataGridViewTextBoxColumn();
+            txtSearch = new TextBox();
+            label9 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -273,7 +273,7 @@
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel2.Controls.Add(dataGridView1);
-            panel2.Controls.Add(textBox6);
+            panel2.Controls.Add(txtSearch);
             panel2.Controls.Add(label9);
             panel2.Location = new Point(324, 0);
             panel2.Name = "panel2";
@@ -295,24 +295,6 @@
             dataGridView1.Size = new Size(835, 521);
             dataGridView1.TabIndex = 23;
             dataGridView1.CellClick += dataGridView1_CellClick;
-            // 
-            // textBox6
-            // 
-            textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox6.Location = new Point(630, 10);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(211, 23);
-            textBox6.TabIndex = 22;
-            // 
-            // label9
-            // 
-            label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label9.AutoSize = true;
-            label9.Location = new Point(582, 13);
-            label9.Name = "label9";
-            label9.Size = new Size(51, 15);
-            label9.TabIndex = 21;
-            label9.Text = "Search : ";
             // 
             // id_user
             // 
@@ -386,6 +368,25 @@
             alamat.Name = "alamat";
             alamat.ReadOnly = true;
             // 
+            // txtSearch
+            // 
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtSearch.Location = new Point(630, 10);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(211, 23);
+            txtSearch.TabIndex = 22;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Location = new Point(582, 13);
+            label9.Name = "label9";
+            label9.Size = new Size(51, 15);
+            label9.TabIndex = 21;
+            label9.Text = "Search : ";
+            // 
             // AdminStudentData
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -423,7 +424,7 @@
         private Button button2;
         private Button button1;
         private DataGridView dataGridView1;
-        private TextBox textBox6;
+        private TextBox txtSearch;
         private Label label9;
         private TextBox txtKelas;
         private TextBox txtEmail;

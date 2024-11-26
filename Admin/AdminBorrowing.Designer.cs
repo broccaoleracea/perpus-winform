@@ -39,6 +39,11 @@
             label4 = new Label();
             label3 = new Label();
             dtgvPeminjamanDetail = new DataGridView();
+            id_peminjaman_buku = new DataGridViewTextBoxColumn();
+            idpeminjaman = new DataGridViewTextBoxColumn();
+            id_buku = new DataGridViewTextBoxColumn();
+            judul_buku = new DataGridViewTextBoxColumn();
+            jml_pinjam = new DataGridViewTextBoxColumn();
             button8 = new Button();
             button7 = new Button();
             button5 = new Button();
@@ -51,10 +56,18 @@
             label2 = new Label();
             textBox6 = new TextBox();
             panel2 = new Panel();
-            textBox8 = new TextBox();
+            txtSearch = new TextBox();
             label7 = new Label();
             dtgvPeminjaman = new DataGridView();
+            id_peminjaman1 = new DataGridViewTextBoxColumn();
+            id_user = new DataGridViewTextBoxColumn();
+            nama = new DataGridViewTextBoxColumn();
+            tgl_pinjam = new DataGridViewTextBoxColumn();
+            tgl_kembali = new DataGridViewTextBoxColumn();
+            durasi_pinjam = new DataGridViewTextBoxColumn();
+            denda = new DataGridViewTextBoxColumn();
             label9 = new Label();
+            btnRefresh = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvPeminjamanDetail).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numStok).BeginInit();
@@ -176,13 +189,58 @@
             // 
             // dtgvPeminjamanDetail
             // 
+            dtgvPeminjamanDetail.AllowUserToAddRows = false;
+            dtgvPeminjamanDetail.AllowUserToDeleteRows = false;
             dtgvPeminjamanDetail.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dtgvPeminjamanDetail.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgvPeminjamanDetail.Columns.AddRange(new DataGridViewColumn[] { id_peminjaman_buku, idpeminjaman, id_buku, judul_buku, jml_pinjam });
             dtgvPeminjamanDetail.Location = new Point(17, 320);
+            dtgvPeminjamanDetail.MultiSelect = false;
             dtgvPeminjamanDetail.Name = "dtgvPeminjamanDetail";
+            dtgvPeminjamanDetail.ReadOnly = true;
+            dtgvPeminjamanDetail.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgvPeminjamanDetail.Size = new Size(387, 174);
             dtgvPeminjamanDetail.TabIndex = 35;
-            dtgvPeminjamanDetail.CellClick += dtgvPeminjamanDetail_CellClick;
+            dtgvPeminjamanDetail.AllowUserToDeleteRowsChanged += dtgvPeminjamanDetail_AllowUserToDeleteRowsChanged;
+            dtgvPeminjamanDetail.CellClick += dtgvPeminjamanDetail_CellClick_1;
+            // 
+            // id_peminjaman_buku
+            // 
+            id_peminjaman_buku.DataPropertyName = "id_peminjaman_buku";
+            id_peminjaman_buku.HeaderText = "ID Peminjaman Buku";
+            id_peminjaman_buku.Name = "id_peminjaman_buku";
+            id_peminjaman_buku.ReadOnly = true;
+            id_peminjaman_buku.Visible = false;
+            // 
+            // idpeminjaman
+            // 
+            idpeminjaman.DataPropertyName = "id_peminjaman";
+            idpeminjaman.HeaderText = "ID Peminjaman";
+            idpeminjaman.Name = "idpeminjaman";
+            idpeminjaman.ReadOnly = true;
+            idpeminjaman.Visible = false;
+            // 
+            // id_buku
+            // 
+            id_buku.DataPropertyName = "id_buku";
+            id_buku.HeaderText = "ID Buku";
+            id_buku.Name = "id_buku";
+            id_buku.ReadOnly = true;
+            id_buku.Visible = false;
+            // 
+            // judul_buku
+            // 
+            judul_buku.DataPropertyName = "judul_buku";
+            judul_buku.HeaderText = "Judul Buku";
+            judul_buku.Name = "judul_buku";
+            judul_buku.ReadOnly = true;
+            // 
+            // jml_pinjam
+            // 
+            jml_pinjam.DataPropertyName = "jml_pinjam";
+            jml_pinjam.HeaderText = "Jumlah Pinjam";
+            jml_pinjam.Name = "jml_pinjam";
+            jml_pinjam.ReadOnly = true;
             // 
             // button8
             // 
@@ -202,7 +260,7 @@
             button7.TabIndex = 33;
             button7.Text = "Delete";
             button7.UseVisualStyleBackColor = true;
-            button7.Click += button7_Click;
+            button7.Click += button7_Click_1;
             // 
             // button5
             // 
@@ -212,7 +270,7 @@
             button5.TabIndex = 32;
             button5.Text = "Edit";
             button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
+            button5.Click += button5_Click_1;
             // 
             // numStok
             // 
@@ -230,7 +288,7 @@
             button6.TabIndex = 28;
             button6.Text = "Insert";
             button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click;
+            button6.Click += button6_Click_1;
             // 
             // cbJudul
             // 
@@ -290,7 +348,8 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel2.Controls.Add(textBox8);
+            panel2.Controls.Add(btnRefresh);
+            panel2.Controls.Add(txtSearch);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(dtgvPeminjaman);
             panel2.Controls.Add(textBox6);
@@ -300,13 +359,14 @@
             panel2.Size = new Size(522, 508);
             panel2.TabIndex = 5;
             // 
-            // textBox8
+            // txtSearch
             // 
-            textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox8.Location = new Point(295, 10);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(211, 23);
-            textBox8.TabIndex = 27;
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtSearch.Location = new Point(295, 10);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(211, 23);
+            txtSearch.TabIndex = 27;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // label7
             // 
@@ -320,13 +380,70 @@
             // 
             // dtgvPeminjaman
             // 
+            dtgvPeminjaman.AllowUserToAddRows = false;
+            dtgvPeminjaman.AllowUserToDeleteRows = false;
             dtgvPeminjaman.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgvPeminjaman.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgvPeminjaman.Columns.AddRange(new DataGridViewColumn[] { id_peminjaman1, id_user, nama, tgl_pinjam, tgl_kembali, durasi_pinjam, denda });
             dtgvPeminjaman.Location = new Point(9, 39);
+            dtgvPeminjaman.MultiSelect = false;
             dtgvPeminjaman.Name = "dtgvPeminjaman";
+            dtgvPeminjaman.ReadOnly = true;
+            dtgvPeminjaman.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgvPeminjaman.Size = new Size(497, 455);
             dtgvPeminjaman.TabIndex = 23;
-            dtgvPeminjaman.CellClick += dtgvPeminjaman_CellClick;
+            dtgvPeminjaman.CellClick += dtgvPeminjaman_CellClick_1;
+            // 
+            // id_peminjaman1
+            // 
+            id_peminjaman1.DataPropertyName = "id_peminjaman";
+            id_peminjaman1.HeaderText = "ID Peminjaman";
+            id_peminjaman1.Name = "id_peminjaman1";
+            id_peminjaman1.ReadOnly = true;
+            id_peminjaman1.Visible = false;
+            // 
+            // id_user
+            // 
+            id_user.DataPropertyName = "id_user";
+            id_user.HeaderText = "ID User";
+            id_user.Name = "id_user";
+            id_user.ReadOnly = true;
+            id_user.Visible = false;
+            // 
+            // nama
+            // 
+            nama.DataPropertyName = "nama";
+            nama.HeaderText = "Nama Peminjam";
+            nama.Name = "nama";
+            nama.ReadOnly = true;
+            // 
+            // tgl_pinjam
+            // 
+            tgl_pinjam.DataPropertyName = "tgl_pinjam";
+            tgl_pinjam.HeaderText = "Tanggal Pinjam ";
+            tgl_pinjam.Name = "tgl_pinjam";
+            tgl_pinjam.ReadOnly = true;
+            // 
+            // tgl_kembali
+            // 
+            tgl_kembali.DataPropertyName = "tgl_kembali";
+            tgl_kembali.HeaderText = "Tanggal Kembali Seharusnya";
+            tgl_kembali.Name = "tgl_kembali";
+            tgl_kembali.ReadOnly = true;
+            // 
+            // durasi_pinjam
+            // 
+            durasi_pinjam.DataPropertyName = "durasi_pinjam";
+            durasi_pinjam.HeaderText = "Durasi Pinjam";
+            durasi_pinjam.Name = "durasi_pinjam";
+            durasi_pinjam.ReadOnly = true;
+            // 
+            // denda
+            // 
+            denda.DataPropertyName = "denda";
+            denda.HeaderText = "Denda";
+            denda.Name = "denda";
+            denda.ReadOnly = true;
             // 
             // label9
             // 
@@ -337,6 +454,16 @@
             label9.Size = new Size(51, 15);
             label9.TabIndex = 21;
             label9.Text = "Search : ";
+            // 
+            // btnRefresh
+            // 
+            btnRefresh.Location = new Point(166, 10);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(75, 23);
+            btnRefresh.TabIndex = 28;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // AdminBorrowing
             // 
@@ -378,7 +505,7 @@
         private TextBox txtIDBuku;
         private ComboBox cbNama;
         private Label label9;
-        private TextBox textBox8;
+        private TextBox txtSearch;
         private Label label7;
         private Button button8;
         private Button button7;
@@ -386,5 +513,18 @@
         private Button button6;
         private Label label4;
         private Label label3;
+        private DataGridViewTextBoxColumn id_peminjaman_buku;
+        private DataGridViewTextBoxColumn idpeminjaman;
+        private DataGridViewTextBoxColumn id_buku;
+        private DataGridViewTextBoxColumn judul_buku;
+        private DataGridViewTextBoxColumn jml_pinjam;
+        private DataGridViewTextBoxColumn id_peminjaman1;
+        private DataGridViewTextBoxColumn id_user;
+        private DataGridViewTextBoxColumn nama;
+        private DataGridViewTextBoxColumn tgl_pinjam;
+        private DataGridViewTextBoxColumn tgl_kembali;
+        private DataGridViewTextBoxColumn durasi_pinjam;
+        private DataGridViewTextBoxColumn denda;
+        private Button btnRefresh;
     }
 }

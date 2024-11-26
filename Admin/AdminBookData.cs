@@ -173,5 +173,38 @@ namespace desainperpus_vanya
         {
 
         }
+        public void SearchData()
+        {
+            if (!string.IsNullOrEmpty(txtSearch.Text))
+            {
+                try
+                {
+                    LoginForm.connOpen();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM buku WHERE buku.judul_buku LIKE '%' + @query + '%' OR buku.pengarang LIKE '%' + @query + '%' OR buku.penerbit LIKE '%' + @query + '%' OR buku.tahun_terbit LIKE '%' + @query + '%' OR buku.stok LIKE '%' + @query + '%';", LoginForm.conn);
+                    cmd.Parameters.AddWithValue("@query", txtSearch.Text.Trim());
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dataGridView1.DataSource = dt;
+                    LoginForm.conn.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error encountered : " + ex);
+                }
+            }
+            else
+            {
+                displayTable();
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            SearchData();
+        }
     }
 }

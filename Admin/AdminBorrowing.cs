@@ -32,13 +32,16 @@ namespace desainperpus_vanya
             LoginForm.connOpen();
 
             //Fetch data for the main peminjaman table (right side of the screen)
-            SqlCommand peminjaman = new SqlCommand("SELECT * FROM peminjaman", LoginForm.conn);
+            SqlCommand peminjaman = new SqlCommand("SELECT pm.*, u.nama " +
+    "FROM peminjaman pm " +
+    "JOIN [user] u ON pm.id_user = u.id_user", LoginForm.conn);
             SqlDataAdapter sda = new SqlDataAdapter(peminjaman);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
             dtgvPeminjaman.DataSource = dt;
             sda.Dispose();
+
 
             // Fetch data for the name combobox
             SqlCommand kjsdnhkashdkabnxcvcxv = new SqlCommand("SELECT * FROM [user] WHERE role='siswa'", LoginForm.conn);
@@ -58,8 +61,10 @@ namespace desainperpus_vanya
             sda.Fill(dt);
 
             cbJudul.DataSource = dt;
+
             cbJudul.DisplayMember = "judul_buku";
             cbJudul.ValueMember = "id_buku";
+
             cbJudul.SelectedIndex = -1;
 
             //Close the connection
@@ -69,10 +74,41 @@ namespace desainperpus_vanya
         // Reset field values
         private void ResetValues()
         {
+            idpeminjaman = null;
+            txtIDBuku.Text = null;
+            txtNIS.Text = null;
             cbNama.SelectedValue = -1;
             cbJudul.SelectedValue = -1;
             numStok.Value = 0;
             dtgvPeminjamanDetail.DataSource = null;
+        }
+        public void SearchData()
+        {
+            if (!string.IsNullOrEmpty(txtSearch.Text))
+            {
+                try
+                {
+                    LoginForm.conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM peminjaman WHERE buku.judul_buku LIKE '%' + @query + '%' OR buku.pengarang LIKE '%' + @query + '%' OR buku.penerbit LIKE '%' + @query + '%' OR buku.tahun_terbit LIKE '%' + @query + '%' OR buku.stok LIKE '%' + @query + '%';", LoginForm.conn);
+                    cmd.Parameters.AddWithValue("@query", txtSearch.Text.Trim());
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dtgvPeminjaman.DataSource = dt;
+                    LoginForm.conn.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error encountered : " + ex);
+                }
+            }
+            else
+            {
+                displayTable();
+            }
         }
 
         // Check if there's enough book stock to perform the transaction
@@ -110,8 +146,9 @@ namespace desainperpus_vanya
 
                 return true;
             }
-            catch (Exception ex) {
-                MessageBox.Show($"Terjadi kesalahan: {ex.Message}"); 
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Terjadi kesalahan: {ex.Message}");
                 return false;
             }
             finally
@@ -135,8 +172,8 @@ namespace desainperpus_vanya
             {
 
                 LoginForm.connOpen();
-                        //insert peminjaman
-                        string qryAddPeminjaman = @"
+                //insert peminjaman
+                string qryAddPeminjaman = @"
     INSERT INTO peminjaman (id_user, tgl_pinjam, tgl_kembali, durasi_pinjam, denda)
     VALUES (@id_user, @tgl_pinjam, @tgl_kembali, @durasi_pinjam, @denda);
     SELECT SCOPE_IDENTITY();";
@@ -158,7 +195,7 @@ namespace desainperpus_vanya
                     DialogResult confirmAdd = MessageBox.Show("Apakah anda hendak menambahakn detail pada peminjaman?", "Konfirmasi", MessageBoxButtons.YesNo);
                     if (confirmAdd == DialogResult.Yes)
                     {
-                        id_peminjaman =idPeminjaman;
+                        id_peminjaman = idPeminjaman;
                         AddDetailPeminjaman();
                     }
                     else if (confirmAdd == DialogResult.No)
@@ -182,7 +219,7 @@ namespace desainperpus_vanya
                 displayTable();
             }
         }
-        
+
         private void ReduceBookStock(int idBuku, int jumlahPinjam)
         {
             ValidateBookStock(idBuku, jumlahPinjam);
@@ -293,7 +330,7 @@ namespace desainperpus_vanya
                 LoginForm.connOpen();
                 cmdPeminjamanBuku.ExecuteNonQuery();
 
-             
+
                 ReduceBookStock(idBuku, jumlahPinjam);
 
                 MessageBox.Show("Detail peminjaman berhasil ditambahkan.");
@@ -320,7 +357,7 @@ namespace desainperpus_vanya
 
             try
             {
-                
+
 
                 // Update peminjaman
                 string qryUpdatePeminjaman = @"
@@ -329,7 +366,7 @@ namespace desainperpus_vanya
                 tgl_kembali = @tgl_kembali, 
                 durasi_pinjam = DATEDIFF(DAY, @tgl_pinjam, @tgl_kembali)
             WHERE id_peminjaman = @id_peminjaman";
-                  
+
                 SqlCommand updatePeminjamanCmd = new SqlCommand(qryUpdatePeminjaman, LoginForm.conn);
                 updatePeminjamanCmd.Parameters.AddWithValue("@tgl_pinjam", tanggalPinjam);
                 updatePeminjamanCmd.Parameters.AddWithValue("@tgl_kembali", tanggalKembali);
@@ -388,8 +425,8 @@ namespace desainperpus_vanya
                 DialogResult confirmDelete = MessageBox.Show("Anda yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-                   // Query to get stock information
-            string qryGetStock = "SELECT id_buku, jml_pinjam FROM peminjaman_buku WHERE id_peminjaman = @id_peminjaman";
+                    // Query to get stock information
+                    string qryGetStock = "SELECT id_buku, jml_pinjam FROM peminjaman_buku WHERE id_peminjaman = @id_peminjaman";
                     DataTable dataTable = new DataTable();
                     using (SqlDataAdapter adapter = new SqlDataAdapter(qryGetStock, LoginForm.conn))
                     {
@@ -416,12 +453,12 @@ namespace desainperpus_vanya
                     SqlCommand delPeminjaman = new SqlCommand("DELETE FROM [peminjaman] WHERE id_peminjaman=@id_peminjaman", LoginForm.conn);
                     delPeminjaman.Parameters.AddWithValue("@id_peminjaman", SqlDbType.VarChar).Value = id_peminjaman;
 
-                    
+
 
                     //execute
-                    LoginForm.connOpen();  
+                    LoginForm.connOpen();
                     delPeminjamanDetail.ExecuteNonQuery();
-                    delPeminjaman.ExecuteNonQuery();  
+                    delPeminjaman.ExecuteNonQuery();
                     MessageBox.Show("Data berhasil dihapus");
                 }
                 else if (confirmDelete == DialogResult.No)
@@ -444,37 +481,24 @@ namespace desainperpus_vanya
 
         }
 
-        private void dtgvPeminjaman_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            // Safeguard if thw user clicked on invalid row
-            if (e.RowIndex < 0) return;
-
-            int index = e.RowIndex;
-            DataGridViewRow selectedRow = dtgvPeminjaman.Rows[index];
-            id_peminjaman = (int)selectedRow.Cells[0].Value;
-
-            SqlCommand detail = new SqlCommand("SELECT * FROM peminjaman_buku WHERE id_peminjaman=" + id_peminjaman + ";", LoginForm.conn);
-            SqlDataAdapter detailsda = new SqlDataAdapter(detail);
-            DataTable detaildt = new DataTable();
-            detailsda.Fill(detaildt);
-
-            dtgvPeminjamanDetail.DataSource = detaildt;
-            detailsda.Dispose();
-
-            cbNama.SelectedValue = (int)selectedRow.Cells[1].Value; 
+            SearchData();
         }
 
-
-        private void dtgvPeminjamanDetail_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void button6_Click_1(object sender, EventArgs e)
         {
-            // Safeguard if thw user clicked on invalid row
-            if (e.RowIndex < 0) return; 
+            AddDetailPeminjaman();
+        }
 
-            int index = e.RowIndex;
-            DataGridViewRow selectedRow = dtgvPeminjamanDetail.Rows[index];
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            UpdateData();
+        }
 
-            cbJudul.SelectedValue = (int)selectedRow.Cells[2].Value;
-            numStok.Value = (int)selectedRow.Cells[3].Value;
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            DeleteData();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -482,20 +506,60 @@ namespace desainperpus_vanya
             AddNewPeminjaman();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void dtgvPeminjaman_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            AddDetailPeminjaman();
+            // Safeguard if thw user clicked on invalid row
+            if (e.RowIndex < 0) return;
+
+            int index = e.RowIndex;
+            DataGridViewRow selectedRow = dtgvPeminjaman.Rows[index];
+            id_peminjaman = (int)selectedRow.Cells[0].Value;
+            int userid = (int)selectedRow.Cells[1].Value;
+
+            SqlCommand detail = new SqlCommand("SELECT pb.*, b.judul_buku " +
+    "FROM peminjaman_buku pb " +
+    "JOIN buku b ON pb.id_buku = b.id_buku " +
+    "WHERE pb.id_peminjaman = @id_peminjaman;", LoginForm.conn);
+            detail.Parameters.AddWithValue("@id_peminjaman", id_peminjaman);
+            SqlDataAdapter detailsda = new SqlDataAdapter(detail);
+            DataTable detaildt = new DataTable();
+            detailsda.Fill(detaildt);
+
+            dtgvPeminjamanDetail.DataSource = detaildt;
+            detailsda.Dispose();
+
+            LoginForm.connOpen();
+            SqlCommand nis = new SqlCommand("SELECT nis FROM siswa WHERE id_user=@id_user", LoginForm.conn);
+            nis.Parameters.AddWithValue("@id_user", userid);
+            object result = nis.ExecuteScalar();
+            LoginForm.conn.Close();
+            txtNIS.Text =result.ToString();
+
+            cbNama.SelectedValue = (int)selectedRow.Cells[1].Value;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void dtgvPeminjamanDetail_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            UpdateData();
+            // Safeguard if thw user clicked on invalid row
+            if (e.RowIndex < 0) return;
+
+            int index = e.RowIndex;
+            DataGridViewRow selectedRow = dtgvPeminjamanDetail.Rows[index];
+
+            cbJudul.SelectedValue = (int)selectedRow.Cells[2].Value;
+            txtIDBuku.Text = selectedRow.Cells[2].Value.ToString();
+            numStok.Value = (int)selectedRow.Cells[3].Value;
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void dtgvPeminjamanDetail_AllowUserToDeleteRowsChanged(object sender, EventArgs e)
         {
-            DeleteData();
+
         }
-      
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            displayTable();
+            ResetValues();
+        }
     }
 }

@@ -29,11 +29,17 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
+            id_buku = new DataGridViewTextBoxColumn();
+            judul_buku = new DataGridViewTextBoxColumn();
+            pengarang = new DataGridViewTextBoxColumn();
+            penerbit = new DataGridViewTextBoxColumn();
+            tahun_terbit = new DataGridViewTextBoxColumn();
+            stok = new DataGridViewTextBoxColumn();
             label9 = new Label();
             button2 = new Button();
             button1 = new Button();
             panel2 = new Panel();
-            textBox7 = new TextBox();
+            txtSearch = new TextBox();
             label10 = new Label();
             textBox6 = new TextBox();
             txtPengarang = new TextBox();
@@ -51,12 +57,6 @@
             label4 = new Label();
             txtPenerbit = new TextBox();
             label5 = new Label();
-            id_buku = new DataGridViewTextBoxColumn();
-            judul_buku = new DataGridViewTextBoxColumn();
-            pengarang = new DataGridViewTextBoxColumn();
-            penerbit = new DataGridViewTextBoxColumn();
-            tahun_terbit = new DataGridViewTextBoxColumn();
-            stok = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
@@ -79,6 +79,49 @@
             dataGridView1.TabIndex = 23;
             dataGridView1.CellClick += dataGridView1_CellClick;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // id_buku
+            // 
+            id_buku.DataPropertyName = "id_buku";
+            id_buku.HeaderText = "ID Buku";
+            id_buku.Name = "id_buku";
+            id_buku.ReadOnly = true;
+            id_buku.Visible = false;
+            // 
+            // judul_buku
+            // 
+            judul_buku.DataPropertyName = "judul_buku";
+            judul_buku.HeaderText = "Judul Buku";
+            judul_buku.Name = "judul_buku";
+            judul_buku.ReadOnly = true;
+            // 
+            // pengarang
+            // 
+            pengarang.DataPropertyName = "pengarang";
+            pengarang.HeaderText = "Pengarang";
+            pengarang.Name = "pengarang";
+            pengarang.ReadOnly = true;
+            // 
+            // penerbit
+            // 
+            penerbit.DataPropertyName = "penerbit";
+            penerbit.HeaderText = "Penerbit";
+            penerbit.Name = "penerbit";
+            penerbit.ReadOnly = true;
+            // 
+            // tahun_terbit
+            // 
+            tahun_terbit.DataPropertyName = "tahun_terbit";
+            tahun_terbit.HeaderText = "Tahun Terbit";
+            tahun_terbit.Name = "tahun_terbit";
+            tahun_terbit.ReadOnly = true;
+            // 
+            // stok
+            // 
+            stok.DataPropertyName = "stok";
+            stok.HeaderText = "Stok";
+            stok.Name = "stok";
+            stok.ReadOnly = true;
             // 
             // label9
             // 
@@ -113,7 +156,7 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel2.Controls.Add(textBox7);
+            panel2.Controls.Add(txtSearch);
             panel2.Controls.Add(label10);
             panel2.Controls.Add(dataGridView1);
             panel2.Controls.Add(textBox6);
@@ -123,13 +166,14 @@
             panel2.Size = new Size(557, 546);
             panel2.TabIndex = 3;
             // 
-            // textBox7
+            // txtSearch
             // 
-            textBox7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox7.Location = new Point(330, 10);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(211, 23);
-            textBox7.TabIndex = 25;
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtSearch.Location = new Point(330, 10);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(211, 23);
+            txtSearch.TabIndex = 25;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // label10
             // 
@@ -298,43 +342,6 @@
             label5.TabIndex = 21;
             label5.Text = "Penerbit";
             // 
-            // id_buku
-            // 
-            id_buku.DataPropertyName = "id_buku";
-            id_buku.HeaderText = "ID Buku";
-            id_buku.Name = "id_buku";
-            id_buku.Visible = false;
-            // 
-            // judul_buku
-            // 
-            judul_buku.DataPropertyName = "judul_buku";
-            judul_buku.HeaderText = "Judul Buku";
-            judul_buku.Name = "judul_buku";
-            // 
-            // pengarang
-            // 
-            pengarang.DataPropertyName = "pengarang";
-            pengarang.HeaderText = "Pengarang";
-            pengarang.Name = "pengarang";
-            // 
-            // penerbit
-            // 
-            penerbit.DataPropertyName = "penerbit";
-            penerbit.HeaderText = "Penerbit";
-            penerbit.Name = "penerbit";
-            // 
-            // tahun_terbit
-            // 
-            tahun_terbit.DataPropertyName = "tahun_terbit";
-            tahun_terbit.HeaderText = "Tahun Terbit";
-            tahun_terbit.Name = "tahun_terbit";
-            // 
-            // stok
-            // 
-            stok.DataPropertyName = "stok";
-            stok.HeaderText = "Stok";
-            stok.Name = "stok";
-            // 
             // AdminBookData
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -367,7 +374,7 @@
         private Label label1;
         private Label label2;
         private Panel panel1;
-        private TextBox textBox7;
+        private TextBox txtSearch;
         private Label label10;
         private Label label6;
         private Label label4;

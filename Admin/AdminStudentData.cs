@@ -155,5 +155,39 @@ namespace desainperpus_vanya
             txtKelas.Text = selectedRow.Cells[8].Value.ToString();
             txtAlamat.Text = selectedRow.Cells[9].Value.ToString();
         }
+        public void SearchData()
+        {
+            if (!string.IsNullOrEmpty(txtSearch.Text))
+            {
+                try
+                {
+                    LoginForm.connOpen();
+
+                    // Joins the user and siswa tables and searches for any matches in the specified columns (nis, nama, kelas, alamat, no_telp, username, and password)
+                    SqlCommand cmd = new SqlCommand("SELECT \r\n    u.id_user,\r\n    u.nama AS UserName,\r\n    u.username,\r\n    u.password,\r\n    u.email,\r\n    u.no_telp,\r\n    s.id_siswa,\r\n    s.nis,\r\n    s.kelas,\r\n    s.alamat\r\nFROM \r\n    dbo.[user] u\r\nLEFT JOIN \r\n    dbo.siswa s ON u.id_user = s.id_user\r\n WHERE  s.nis LIKE '%' + @query + '%' OR u.nama LIKE '%' + @query + '%' OR s.kelas LIKE '%' + @query + '%' OR s.alamat LIKE '%' + @query + '%' OR u.no_telp LIKE '%' + @query + '%' OR u.username LIKE '%' + @query + '%' OR u.password LIKE '%' + @query + '%';", LoginForm.conn);
+                    cmd.Parameters.AddWithValue("@query", txtSearch.Text.Trim());
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dataGridView1.DataSource = dt;
+                    LoginForm.conn.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error encountered : " + ex);
+                }
+            }
+            else
+            {
+                displayTable();
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            SearchData();
+        }
     }
 }
