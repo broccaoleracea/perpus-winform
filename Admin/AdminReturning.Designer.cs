@@ -190,9 +190,9 @@
             label2.Font = new Font("Montserrat SemiBold", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(9, 14);
             label2.Name = "label2";
-            label2.Size = new Size(195, 42);
+            label2.Size = new Size(222, 42);
             label2.TabIndex = 35;
-            label2.Text = "Peminjaman";
+            label2.Text = "Pengembalian";
             // 
             // textBox7
             // 
