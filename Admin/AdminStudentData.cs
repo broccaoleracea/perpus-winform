@@ -94,6 +94,7 @@ namespace desainperpus_vanya
 
         private void DeleteData()
         {
+            LoginForm.connOpen();
             SqlCommand deleteStudent = new SqlCommand("DELETE FROM siswa WHERE id_siswa=@id_siswa", LoginForm.conn);
             deleteStudent.Parameters.AddWithValue("@id_siswa", SqlDbType.VarChar).Value = studentId;
 

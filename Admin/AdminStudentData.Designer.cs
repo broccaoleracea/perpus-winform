@@ -53,6 +53,16 @@
             dataGridView1 = new DataGridView();
             textBox6 = new TextBox();
             label9 = new Label();
+            id_user = new DataGridViewTextBoxColumn();
+            UserName = new DataGridViewTextBoxColumn();
+            username1 = new DataGridViewTextBoxColumn();
+            password = new DataGridViewTextBoxColumn();
+            email = new DataGridViewTextBoxColumn();
+            no_telp = new DataGridViewTextBoxColumn();
+            id_siswa = new DataGridViewTextBoxColumn();
+            nis = new DataGridViewTextBoxColumn();
+            kelas = new DataGridViewTextBoxColumn();
+            alamat = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -272,10 +282,16 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id_user, UserName, username1, password, email, no_telp, id_siswa, nis, kelas, alamat });
             dataGridView1.Location = new Point(6, 39);
+            dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(835, 521);
             dataGridView1.TabIndex = 23;
             dataGridView1.CellClick += dataGridView1_CellClick;
@@ -297,6 +313,78 @@
             label9.Size = new Size(51, 15);
             label9.TabIndex = 21;
             label9.Text = "Search : ";
+            // 
+            // id_user
+            // 
+            id_user.DataPropertyName = "id_user";
+            id_user.HeaderText = "ID User";
+            id_user.Name = "id_user";
+            id_user.ReadOnly = true;
+            id_user.Visible = false;
+            // 
+            // UserName
+            // 
+            UserName.DataPropertyName = "UserName";
+            UserName.HeaderText = "Nama";
+            UserName.Name = "UserName";
+            UserName.ReadOnly = true;
+            // 
+            // username1
+            // 
+            username1.DataPropertyName = "username1";
+            username1.HeaderText = "Username";
+            username1.Name = "username1";
+            username1.ReadOnly = true;
+            // 
+            // password
+            // 
+            password.DataPropertyName = "password";
+            password.HeaderText = "Password";
+            password.Name = "password";
+            password.ReadOnly = true;
+            // 
+            // email
+            // 
+            email.DataPropertyName = "email";
+            email.HeaderText = "E-mail";
+            email.Name = "email";
+            email.ReadOnly = true;
+            // 
+            // no_telp
+            // 
+            no_telp.DataPropertyName = "no_telp";
+            no_telp.HeaderText = "No. Telp";
+            no_telp.Name = "no_telp";
+            no_telp.ReadOnly = true;
+            // 
+            // id_siswa
+            // 
+            id_siswa.DataPropertyName = "id_siswa";
+            id_siswa.HeaderText = "ID Siswa";
+            id_siswa.Name = "id_siswa";
+            id_siswa.ReadOnly = true;
+            id_siswa.Visible = false;
+            // 
+            // nis
+            // 
+            nis.DataPropertyName = "nis";
+            nis.HeaderText = "NIS";
+            nis.Name = "nis";
+            nis.ReadOnly = true;
+            // 
+            // kelas
+            // 
+            kelas.DataPropertyName = "kelas";
+            kelas.HeaderText = "Kelas";
+            kelas.Name = "kelas";
+            kelas.ReadOnly = true;
+            // 
+            // alamat
+            // 
+            alamat.DataPropertyName = "alamat";
+            alamat.HeaderText = "Alamat";
+            alamat.Name = "alamat";
+            alamat.ReadOnly = true;
             // 
             // AdminStudentData
             // 
@@ -342,5 +430,15 @@
         private Label label10;
         private TextBox txtTelp;
         private Button btnDel;
+        private DataGridViewTextBoxColumn id_user;
+        private DataGridViewTextBoxColumn UserName;
+        private DataGridViewTextBoxColumn username1;
+        private DataGridViewTextBoxColumn password;
+        private DataGridViewTextBoxColumn email;
+        private DataGridViewTextBoxColumn no_telp;
+        private DataGridViewTextBoxColumn id_siswa;
+        private DataGridViewTextBoxColumn nis;
+        private DataGridViewTextBoxColumn kelas;
+        private DataGridViewTextBoxColumn alamat;
     }
 }

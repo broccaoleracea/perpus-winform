@@ -26,6 +26,7 @@ namespace desainperpus_vanya
             displayTable();
         }
 
+        // Refresh tables
         private void displayTable()
         {
             LoginForm.connOpen();
@@ -65,6 +66,7 @@ namespace desainperpus_vanya
             LoginForm.conn.Close();
         }
 
+        // Reset field values
         private void ResetValues()
         {
             cbNama.SelectedValue = -1;
@@ -180,7 +182,6 @@ namespace desainperpus_vanya
                 displayTable();
             }
         }
-
         
         private void ReduceBookStock(int idBuku, int jumlahPinjam)
         {
@@ -495,7 +496,6 @@ namespace desainperpus_vanya
         {
             DeleteData();
         }
-
       
     }
 }

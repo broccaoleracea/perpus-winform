@@ -51,6 +51,12 @@
             label4 = new Label();
             txtPenerbit = new TextBox();
             label5 = new Label();
+            id_buku = new DataGridViewTextBoxColumn();
+            judul_buku = new DataGridViewTextBoxColumn();
+            pengarang = new DataGridViewTextBoxColumn();
+            penerbit = new DataGridViewTextBoxColumn();
+            tahun_terbit = new DataGridViewTextBoxColumn();
+            stok = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
@@ -59,10 +65,16 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id_buku, judul_buku, pengarang, penerbit, tahun_terbit, stok });
             dataGridView1.Location = new Point(8, 43);
+            dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(533, 488);
             dataGridView1.TabIndex = 23;
             dataGridView1.CellClick += dataGridView1_CellClick;
@@ -286,6 +298,43 @@
             label5.TabIndex = 21;
             label5.Text = "Penerbit";
             // 
+            // id_buku
+            // 
+            id_buku.DataPropertyName = "id_buku";
+            id_buku.HeaderText = "ID Buku";
+            id_buku.Name = "id_buku";
+            id_buku.Visible = false;
+            // 
+            // judul_buku
+            // 
+            judul_buku.DataPropertyName = "judul_buku";
+            judul_buku.HeaderText = "Judul Buku";
+            judul_buku.Name = "judul_buku";
+            // 
+            // pengarang
+            // 
+            pengarang.DataPropertyName = "pengarang";
+            pengarang.HeaderText = "Pengarang";
+            pengarang.Name = "pengarang";
+            // 
+            // penerbit
+            // 
+            penerbit.DataPropertyName = "penerbit";
+            penerbit.HeaderText = "Penerbit";
+            penerbit.Name = "penerbit";
+            // 
+            // tahun_terbit
+            // 
+            tahun_terbit.DataPropertyName = "tahun_terbit";
+            tahun_terbit.HeaderText = "Tahun Terbit";
+            tahun_terbit.Name = "tahun_terbit";
+            // 
+            // stok
+            // 
+            stok.DataPropertyName = "stok";
+            stok.HeaderText = "Stok";
+            stok.Name = "stok";
+            // 
             // AdminBookData
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -329,5 +378,11 @@
         private NumericUpDown numStok;
         private DateTimePicker dateTimePicker1;
         private Button btnDel;
+        private DataGridViewTextBoxColumn id_buku;
+        private DataGridViewTextBoxColumn judul_buku;
+        private DataGridViewTextBoxColumn pengarang;
+        private DataGridViewTextBoxColumn penerbit;
+        private DataGridViewTextBoxColumn tahun_terbit;
+        private DataGridViewTextBoxColumn stok;
     }
 }
