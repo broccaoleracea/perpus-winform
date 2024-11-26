@@ -60,6 +60,8 @@
             txtNIS = new TextBox();
             label1 = new Label();
             panel1 = new Panel();
+            txtNama = new TextBox();
+            label8 = new Label();
             label4 = new Label();
             dtpPengembalian = new DateTimePicker();
             label3 = new Label();
@@ -70,8 +72,6 @@
             judul_buku = new DataGridViewTextBoxColumn();
             tglkembali1 = new DataGridViewTextBoxColumn();
             denda1 = new DataGridViewTextBoxColumn();
-            label8 = new Label();
-            cbNama = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dtgvPeminjaman).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numDenda).BeginInit();
@@ -152,7 +152,7 @@
             // denda
             // 
             denda.DataPropertyName = "denda";
-            denda.HeaderText = "Denda";
+            denda.HeaderText = "Total Denda";
             denda.Name = "denda";
             denda.ReadOnly = true;
             // 
@@ -175,12 +175,14 @@
             // 
             // btnRefresh
             // 
+            btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRefresh.Location = new Point(597, 27);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(75, 23);
             btnRefresh.TabIndex = 36;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // label2
             // 
@@ -244,6 +246,7 @@
             button7.TabIndex = 33;
             button7.Text = "Delete";
             button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
             // button5
             // 
@@ -259,6 +262,7 @@
             // 
             numDenda.Enabled = false;
             numDenda.Location = new Point(132, 214);
+            numDenda.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             numDenda.Name = "numDenda";
             numDenda.Size = new Size(182, 23);
             numDenda.TabIndex = 31;
@@ -367,7 +371,7 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.Controls.Add(cbNama);
+            panel1.Controls.Add(txtNama);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(dtpPengembalian);
@@ -391,6 +395,23 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(952, 277);
             panel1.TabIndex = 6;
+            // 
+            // txtNama
+            // 
+            txtNama.Enabled = false;
+            txtNama.Location = new Point(132, 69);
+            txtNama.Name = "txtNama";
+            txtNama.Size = new Size(273, 23);
+            txtNama.TabIndex = 41;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(25, 164);
+            label8.Name = "label8";
+            label8.Size = new Size(48, 15);
+            label8.TabIndex = 40;
+            label8.Text = "ID Buku";
             // 
             // label4
             // 
@@ -479,23 +500,6 @@
             denda1.Name = "denda1";
             denda1.ReadOnly = true;
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(25, 164);
-            label8.Name = "label8";
-            label8.Size = new Size(48, 15);
-            label8.TabIndex = 40;
-            label8.Text = "ID Buku";
-            // 
-            // cbNama
-            // 
-            cbNama.FormattingEnabled = true;
-            cbNama.Location = new Point(132, 69);
-            cbNama.Name = "cbNama";
-            cbNama.Size = new Size(273, 23);
-            cbNama.TabIndex = 41;
-            // 
             // AdminReturning
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -544,13 +548,6 @@
         private Label label3;
         private Label label4;
         private DateTimePicker dtpPengembalian;
-        private DataGridViewTextBoxColumn idpeminjaman;
-        private DataGridViewTextBoxColumn iduser;
-        private DataGridViewTextBoxColumn nama;
-        private DataGridViewTextBoxColumn tgl_pinjam;
-        private DataGridViewTextBoxColumn tgl_kembali;
-        private DataGridViewTextBoxColumn durasi_pinjam;
-        private DataGridViewTextBoxColumn denda;
         private DataGridViewTextBoxColumn idpengembalian;
         private DataGridViewTextBoxColumn idpeminjaman1;
         private DataGridViewTextBoxColumn id_buku;
@@ -559,6 +556,13 @@
         private DataGridViewTextBoxColumn denda1;
         private Button btnRefresh;
         private Label label8;
-        private ComboBox cbNama;
+        private DataGridViewTextBoxColumn idpeminjaman;
+        private DataGridViewTextBoxColumn iduser;
+        private DataGridViewTextBoxColumn nama;
+        private DataGridViewTextBoxColumn tgl_pinjam;
+        private DataGridViewTextBoxColumn tgl_kembali;
+        private DataGridViewTextBoxColumn durasi_pinjam;
+        private DataGridViewTextBoxColumn denda;
+        private TextBox txtNama;
     }
 }

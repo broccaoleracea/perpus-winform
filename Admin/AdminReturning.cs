@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,11 +70,18 @@ namespace desainperpus_vanya
 
         private void ResetValues()
         {
-            cbNama.SelectedValue = -1;
+            id_pengembalian = null;
+            id_peminjaman = null;
             cbJudul.SelectedValue = -1;
             dtpPengembalian.Value = DateTime.Now;
             dtgvPengembalian.DataSource = null;
             displayTable();
+            txtNama.Text = null;
+            txtNIS.Text = null;
+            cbJudul.SelectedIndex = -1;
+            txtIdBuku.Text = null;
+            dtpPengembalian.Value = DateTime.Now;
+            numDenda.Value = 0;
         }
         private void displayTable()
         {
@@ -363,28 +371,35 @@ namespace desainperpus_vanya
 
         public void DeleteData()
         {
-            try
+            if(id_pengembalian != null)
             {
-                LoginForm.connOpen();
-
-                // confirm if the user really want to delete the data 
-                DialogResult confirmDelete = MessageBox.Show("Anda yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
-                if (confirmDelete == DialogResult.Yes)
+                try
                 {
-                    SqlCommand delPeminjamanDetail = new SqlCommand("DELETE FROM pengembalian WHERE id_peminjaman=@id_peminjaman AND id_pengembalian = @id_pengembalian", LoginForm.conn);
-                    delPeminjamanDetail.Parameters.AddWithValue("@id_peminjaman", SqlDbType.VarChar).Value = id_peminjaman;
-                    delPeminjamanDetail.Parameters.AddWithValue("@id_peminjaman", SqlDbType.VarChar);
-
-                    //execute
                     LoginForm.connOpen();
-                    delPeminjamanDetail.ExecuteNonQuery();
-                    MessageBox.Show("Data berhasil dihapus");
+
+                    // confirm if the user really want to delete the data 
+                    DialogResult confirmDelete = MessageBox.Show("Anda yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
+                    if (confirmDelete == DialogResult.Yes)
+                    {
+                        SqlCommand delPeminjamanDetail = new SqlCommand("DELETE FROM pengembalian WHERE id_pengembalian = @id_pengembalian", LoginForm.conn);
+                        delPeminjamanDetail.Parameters.AddWithValue("@id_pengembalian", id_pengembalian);
+
+                        //execute
+                        LoginForm.connOpen();
+                        delPeminjamanDetail.ExecuteNonQuery();
+                        MessageBox.Show("Data berhasil dihapus");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error encountered: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error encountered: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Mohon pilih pengembalian terlebih tahulu!");
             }
+            
         }
 
 
@@ -412,12 +427,25 @@ namespace desainperpus_vanya
             cbJudul.DataSource = detaildt;
             cbJudul.DisplayMember = "judul_buku";
             cbJudul.ValueMember = "id_buku";
+            txtIdBuku.Text = cbJudul.SelectedValue.ToString();
 
             cbJudul.SelectedIndex = -1;
             dtgvPengembalian.DataSource = pengembaliandt;
             pengembaliansda.Dispose();
 
-            cbNama.SelectedValue = (int)selectedRow.Cells[1].Value;
+            LoginForm.connOpen();
+            SqlCommand nis = new SqlCommand("SELECT nis FROM siswa WHERE id_user=@id_user", LoginForm.conn);
+            nis.Parameters.AddWithValue("@id_user", (int)selectedRow.Cells[1].Value);
+            object result = nis.ExecuteScalar();
+            LoginForm.conn.Close();
+            txtNIS.Text = result.ToString();
+
+            LoginForm.connOpen();
+            SqlCommand nama = new SqlCommand("SELECT nama FROM [user] WHERE id_user=@id_user", LoginForm.conn);
+            nama.Parameters.AddWithValue("@id_user", (int)selectedRow.Cells[1].Value);
+            result = nama.ExecuteScalar();
+            LoginForm.conn.Close();
+            txtNama.Text = result.ToString();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -432,7 +460,23 @@ namespace desainperpus_vanya
 
         private void dtgvPengembalian_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
 
+            int index = e.RowIndex;
+            DataGridViewRow selectedRow = dtgvPengembalian.Rows[index];
+            id_pengembalian = (int)selectedRow.Cells[0].Value;
+            numDenda.Value = (int)selectedRow.Cells[4].Value;
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            displayTable();
+            ResetValues();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            DeleteData();
         }
     }
 }

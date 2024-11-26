@@ -56,6 +56,7 @@
             label2 = new Label();
             textBox6 = new TextBox();
             panel2 = new Panel();
+            btnRefresh = new Button();
             txtSearch = new TextBox();
             label7 = new Label();
             dtgvPeminjaman = new DataGridView();
@@ -67,7 +68,6 @@
             durasi_pinjam = new DataGridViewTextBoxColumn();
             denda = new DataGridViewTextBoxColumn();
             label9 = new Label();
-            btnRefresh = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvPeminjamanDetail).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numStok).BeginInit();
@@ -359,6 +359,17 @@
             panel2.Size = new Size(522, 508);
             panel2.TabIndex = 5;
             // 
+            // btnRefresh
+            // 
+            btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRefresh.Location = new Point(166, 10);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(75, 23);
+            btnRefresh.TabIndex = 28;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
+            // 
             // txtSearch
             // 
             txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -454,16 +465,6 @@
             label9.Size = new Size(51, 15);
             label9.TabIndex = 21;
             label9.Text = "Search : ";
-            // 
-            // btnRefresh
-            // 
-            btnRefresh.Location = new Point(166, 10);
-            btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(75, 23);
-            btnRefresh.TabIndex = 28;
-            btnRefresh.Text = "Refresh";
-            btnRefresh.UseVisualStyleBackColor = true;
-            btnRefresh.Click += btnRefresh_Click;
             // 
             // AdminBorrowing
             // 
