@@ -51,7 +51,7 @@ namespace desainperpus_vanya
                  227,
                  button2.Location.Y
              );
-            //adminStudentData1.BringToFront();
+            searchBook1.BringToFront();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace desainperpus_vanya
                  227,
                  button4.Location.Y
              );
-            //adminBookData2.BringToFront();
+            searchBorrowing1.BringToFront();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace desainperpus_vanya
                  227,
                  button3.Location.Y
              );
-            //adminBorrowing1.BringToFront();
+            searchReturned1.BringToFront();
         }
 
         private void AdminDash_FormClosing(object sender, FormClosingEventArgs e)

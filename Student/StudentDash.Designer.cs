@@ -39,11 +39,18 @@
             button4 = new Button();
             button2 = new Button();
             button1 = new Button();
+            searchBook1 = new Student.SearchBook();
+            searchBorrowing1 = new Student.SearchBorrowing();
+            searchReturned1 = new Student.SearchReturned();
+            pnlMain.SuspendLayout();
             pnlSide.SuspendLayout();
             SuspendLayout();
             // 
             // pnlMain
             // 
+            pnlMain.Controls.Add(searchReturned1);
+            pnlMain.Controls.Add(searchBorrowing1);
+            pnlMain.Controls.Add(searchBook1);
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 0);
             pnlMain.Name = "pnlMain";
@@ -192,6 +199,33 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
+            // searchBook1
+            // 
+            searchBook1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            searchBook1.BackColor = SystemColors.ControlLightLight;
+            searchBook1.Location = new Point(234, 0);
+            searchBook1.Name = "searchBook1";
+            searchBook1.Size = new Size(893, 661);
+            searchBook1.TabIndex = 0;
+            // 
+            // searchBorrowing1
+            // 
+            searchBorrowing1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            searchBorrowing1.BackColor = SystemColors.ControlLightLight;
+            searchBorrowing1.Location = new Point(234, 0);
+            searchBorrowing1.Name = "searchBorrowing1";
+            searchBorrowing1.Size = new Size(893, 661);
+            searchBorrowing1.TabIndex = 1;
+            // 
+            // searchReturned1
+            // 
+            searchReturned1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            searchReturned1.BackColor = SystemColors.ControlLightLight;
+            searchReturned1.Location = new Point(234, 0);
+            searchReturned1.Name = "searchReturned1";
+            searchReturned1.Size = new Size(893, 661);
+            searchReturned1.TabIndex = 2;
+            // 
             // StudentDash
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -205,6 +239,7 @@
             Text = "AdminDash";
             FormClosing += AdminDash_FormClosing;
             Load += AdminDash_Load;
+            pnlMain.ResumeLayout(false);
             pnlSide.ResumeLayout(false);
             pnlSide.PerformLayout();
             ResumeLayout(false);
@@ -228,5 +263,8 @@
         private AdminReturning adminReturning1;
         private Label label3;
         private Label lblGreeting;
+        private Student.SearchBorrowing searchBorrowing1;
+        private Student.SearchBook searchBook1;
+        private Student.SearchReturned searchReturned1;
     }
 }
